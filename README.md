@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Player example in nextjs with vidstack and libass subtitles
 
-## Getting Started
+## Notes
 
-First, run the development server:
+### Updating jassub
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+After updating jassub you need to copy files from `node_modules/jassub/dist` to `public/jassub`. I think it can be fixed with [copy-webpack-plugin](https://webpack.js.org/plugins/copy-webpack-plugin/)
+
+### Subtitles shows in wrong place
+
+`data-media-provider` has `display: flex` which caused the jassub subtitles to be displayed in the wrong place. Because `video` element is inside of `data-media-provider`, and jassub creates another div, which contains canvas with subtitles, that is a sibling element to video on the same level. And this div appears next to the video instead of overlaying it.
+
+```html
+<!-- data-media-provider has display:fles -->
+<div data-media-provider="">
+    <video preload="metadata" aria-hidden="true" src="/video/video.mp4">
+    <!-- JASSUB has position: relative -->
+    <div class="JASSUB">
+        <canvas
+        style="
+            display: block;
+            position: absolute;
+            pointer-events: none;
+            width: 897px;
+            left: 0.5px;
+            height: 505px;
+            top: -252.562px;
+        "
+        width="897"
+        height="505"
+        ></canvas>
+    </div>
+</div>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To fix this I force `display: block` for div with `data-media-provider`:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```tsx
+<MediaProvider style={{ display: "block" }}>
+```
