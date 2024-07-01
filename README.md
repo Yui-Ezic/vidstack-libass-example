@@ -1,5 +1,7 @@
 # Player example in nextjs with vidstack and libass subtitles
 
+This is default nextjs project, so you can use `npm run build` for development server and other scripts
+
 ## Notes
 
 ### Updating jassub
