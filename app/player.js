@@ -22,6 +22,7 @@ export default function Player(props) {
         blendMode: "wasm",
         workerUrl: "/jassub/jassub-worker.js",
         legacyWorkerUrl: "/jassub/jassub-worker-legacy.js",
+        fonts: props.fonts,
       });
 
       player.current.textRenderers.add(renderer);

@@ -3,7 +3,7 @@ import Player from "./player";
 
 export default function Home() {
   const playerStyle = {
-    width: "900px",
+    "max-width": "900px",
   };
 
   return (
@@ -14,6 +14,11 @@ export default function Home() {
           subtitles={{
             src: "/video/subtitles.ass",
             type: "ass",
+            fonts: {
+              "ANGIE-BOLD": "/fonts/1_ANGIE-BOLD.woff2",
+              3381: "/fonts/3381-font.ttf",
+              9537: "/fonts/9537.otf",
+            },
           }}
         ></Player>
       </div>
