@@ -3,7 +3,7 @@ import Player from "./player";
 
 export default function Home() {
   const playerStyle = {
-    "max-width": "900px",
+    "maxWidth": "900px",
   };
 
   return (
