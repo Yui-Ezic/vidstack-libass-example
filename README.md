@@ -1,6 +1,8 @@
 # Player example in nextjs with vidstack and libass subtitles
 
-This is default nextjs project, so you can use `npm run build` for development server and other scripts
+To install dependencies: `npm install`
+
+This is default nextjs project, so you can use `npm run dev` for development server and other scripts
 
 ## Notes
 
